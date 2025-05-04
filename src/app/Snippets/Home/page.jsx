@@ -65,7 +65,7 @@ const Header = (moredata) => {
               Clases
             </span>
           </Link>
-          <Link href="/contacto">
+          <Link href="/Alumnos">
             <span className="text-gray-700 hover:text-blue-600 transition duration-200 cursor-pointer">
               Alumnos
             </span>
@@ -87,12 +87,17 @@ const Header = (moredata) => {
                 Home
               </span>
             </Link>
-            <Link href="/sobre-mi" onClick={() => setMenuOpen(false)}>
+            <Link href="/Clases" onClick={() => setMenuOpen(false)}>
               <span className="block text-gray-700 hover:text-blue-600 transition cursor-pointer">
                 Clases
               </span>
             </Link>
-            <Link href="/contacto" onClick={() => setMenuOpen(false)}>
+            <Link href="/Alumnos" onClick={() => setMenuOpen(false)}>
+              <span className="block text-gray-700 hover:text-blue-600 transition cursor-pointer">
+                Alumnos
+              </span>
+            </Link>
+             <Link href="/Alumnos" onClick={() => setMenuOpen(false)}>
               <span className="block text-gray-700 hover:text-blue-600 transition cursor-pointer">
                 Alumnos
               </span>
