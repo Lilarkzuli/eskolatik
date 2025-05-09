@@ -1,24 +1,43 @@
-'use client';
+
 'use client';
 import React, { useState,useEffect } from 'react';
 import Link from 'next/link';
 
 //HEADER
 
-const Header = (moredata) => {
+const Header = ({moredata}) => {
   const [menuOpen, setMenuOpen] = useState(false);
-    const[ data, setData]=useState();
+  const [Loading, setLoading] = useState(true);
+  const [pasado,setPasado]= useState();
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
   useEffect(() => {
-    if (moredata) {
-      setData(moredata); // Solo se actualiza una vez cuando moredata cambia
+    if (!moredata) {  // Si moredata es null, undefined o vacío
+      console.warn("moredata no está definido o está vacío");
+      setLoading(true);
+      return;
     }
-  }, [moredata]); // Dependencia de moredata
+  
+    try {
+      const data = JSON.parse(moredata);
+      setPasado(data);
+      console.log("moredata recibido en Header:", data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error al parsear moredata:", error);
+      setPasado(null);  // Asegúrate de resetear pasado si hay un error
+      setLoading(true);
+    }
+  }, [moredata]);
 
-  console.log(data); // Ver el objeto data en la consola
 
+if (Loading){
+
+
+}
+  
     
-
+if(!Loading){
   return (
     <header className="backdrop-blur bg-white/80 border-b border-gray-200 shadow-sm sticky top-0 z-50 transition-all">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -55,7 +74,7 @@ const Header = (moredata) => {
 
         {/* Menú de escritorio */}
         <nav className="hidden sm:flex space-x-8 text-base font-medium">
-          <Link href="/">
+          <Link href="/Pages/Panel_Principal">
             <span className="text-gray-700 hover:text-blue-600 transition duration-200 cursor-pointer">
               Home
             </span>
@@ -65,14 +84,14 @@ const Header = (moredata) => {
               Clases
             </span>
           </Link>
-          <Link href="/Alumnos">
+          <Link href="/Pages/Alumnos">
             <span className="text-gray-700 hover:text-blue-600 transition duration-200 cursor-pointer">
               Alumnos
             </span>
           </Link>
           <Link href="/Opciones">
             <span className="text-gray-700 hover:text-blue-600 transition duration-200 cursor-pointer">
-              
+            {pasado.Usuario}
             </span>
           </Link>
         </nav>
@@ -97,9 +116,9 @@ const Header = (moredata) => {
                 Alumnos
               </span>
             </Link>
-             <Link href="/Alumnos" onClick={() => setMenuOpen(false)}>
+             <Link href="/" onClick={() => setMenuOpen(false)}>
               <span className="block text-gray-700 hover:text-blue-600 transition cursor-pointer">
-                Alumnos
+              {pasado.Usuario}
               </span>
             </Link>
           </div>
@@ -108,6 +127,6 @@ const Header = (moredata) => {
     </header>
   );
 };
-
+}
 export default Header;
 

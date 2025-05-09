@@ -34,7 +34,6 @@ export async function POST(request) {
         if (match) {
             // Si la contraseña coincide
             const user = rows[0];
-
             delete user.Contraseña_hash; // No enviamos la contraseña al frontend
             
             // Guardar el objeto como una cadena JSON

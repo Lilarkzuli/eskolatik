@@ -1,7 +1,13 @@
+
 {
   "compilerOptions": {
+    "baseUrl": ".",  // ¡Esto es clave!
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/app/Pages/components/*"],
+      "@api/*": ["./src/app/api/*"],
+      "@snippets/*": ["./src/app/Snippets/*"]
     }
-  }
+  },
+  "exclude": ["node_modules"]
 }

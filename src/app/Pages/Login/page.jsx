@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
-
+import { setCookie } from 'cookies-next';
 
 function Login() {
     const [error, setError] = useState('');
@@ -22,7 +21,7 @@ function Login() {
             setLoading(true);
             setError('');
             console.log("he llegado antes del response")
-            const response = await fetch('/api/auth/login/verification', {
+            const response = await fetch('../api/auth/login/verification', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,8 +39,11 @@ function Login() {
         
             // Si el login es exitoso, puedes redirigir al usuario o actualizar el estado
             console.log('Login exitoso:', responseData);
-            Cookies.set('usuario',JSON.stringify(responseData.user), { expires: 7 });
-            router.push('../Panel_Principal'); // Usa la ruta como string
+            setCookie('usuario', JSON.stringify((responseData.user), {
+                maxAge: 60 * 60 * 24 // 1 día
+              }));
+            // Cookies.set('usuario',JSON.stringify(responseData.user), { expires: 7 });
+            router.push('../Pages/Panel_Principal'); // Usa la ruta como string
       
 
         } catch (error) {
